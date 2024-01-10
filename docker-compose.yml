@@ -14,7 +14,7 @@ services:
 
   spring-boot-app:
     build:
-      context: mwt-pvl
+      context: mwt-pvl  # Ensure this is the path to your Spring Boot app's Dockerfile
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
@@ -24,6 +24,15 @@ services:
       - SPRING_DATASOURCE_PASSWORD=my_password
     depends_on:
       - postgres-db
+
+  react-frontend:
+    build:
+      context: students-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - spring-boot-app
 
 volumes:
   postgres_data:
